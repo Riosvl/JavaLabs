@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Appenders>
+        <RollingFile
+                name="FileAppender"
+                fileName="C:\Users\vladm\IdeaProjects\Lab4\src\main\resources\Logs\application.log"
+                filePattern="C:\Users\vladm\IdeaProjects\Lab4\src\main\resources\Logs\application.%i.log"
+                ignoreExceptions="false"
+                append ="true">
+
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+            </PatternLayout>
+
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1MB" />
+            </Policies>
+
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+
+        <SMTP name="MailAppender"
+              subject="Fatal Error in Program"
+              to = "vladyslav.hlushchenko.knm.2019@lpnu.ua"
+              from="vladyslav.hlushchenko.knm.2019@lpnu.ua"
+              smtpHost="smtp.gmail.com"
+              smtpPort="465"
+              bufferSize="50"
+              smtpUsername="vladyslav.hlushchenko.knm.2019@lpnu.ua"
+              smtpPassword="26.07.2002"
+              smtpProtocol="smtps"
+            >
+            <ThresholdFilter level="FATAL" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+            </PatternLayout>
+
+            </SMTP>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref ="FileAppender"/>
+            <AppenderRef ref ="MailAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
